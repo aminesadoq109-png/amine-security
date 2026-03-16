@@ -5,93 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AMINE SECURITY | الحماية القصوى</title>
     <style>
-        body {
-            background-color: #000;
-            color: #0f0;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            overflow-x: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        #matrix-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-        .container {
-            background: rgba(0, 0, 0, 0.9);
-            border: 2px solid #0f0;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 0 25px #0f0;
-            max-width: 350px;
-            width: 90%;
-        }
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 3px solid #ff0;
-            margin-bottom: 15px;
-            object-fit: cover;
-        }
+        body { background-color: #000; color: #0f0; font-family: 'Courier New', Courier, monospace; margin: 0; overflow: hidden; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        #matrix-canvas { position: fixed; top: 0; left: 0; z-index: -1; }
+        .container { background: rgba(0, 0, 0, 0.9); border: 2px solid #0f0; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 0 25px #0f0; max-width: 350px; width: 90%; }
+        .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 2px solid #ff0; margin-bottom: 15px; object-fit: cover; }
         h1 { color: #ff0; font-size: 22px; margin: 10px 0; }
-        .status { font-size: 12px; color: #0f0; border: 1px solid #0f0; padding: 4px; display: inline-block; margin-bottom: 15px; }
-        .price-list { text-align: right; margin-bottom: 20px; font-size: 14px; }
-        .price-item { display: flex; justify-content: space-between; border-bottom: 1px dashed #333; padding: 8px 0; }
-        .btn-contact {
-            background: #ff0;
-            color: #000;
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-            transition: 0.3s;
-        }
-        .btn-contact:hover { background: #fff; box-shadow: 0 0 15px #fff; }
+        .price-item { display: flex; justify-content: space-between; border-bottom: 1px dashed #333; padding: 8px 0; font-size: 14px; }
+        .btn-contact { background: #ff0; color: #000; padding: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; margin-top: 15px; }
     </style>
 </head>
 <body>
     <canvas id="matrix-canvas"></canvas>
     <div class="container">
-        <img src="https://cdn-icons-png.flaticon.com/512/668/668709.png" alt="Amine" class="profile-img">
+        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=200&h=200" alt="Amine Security" class="profile-img">
         <h1>AMINE SECURITY</h1>
-        <div class="status">النظام: آمن ومحمي 🔒</div>
+        <div style="font-size: 12px; border: 1px solid #0f0; padding: 4px; margin-bottom: 15px;">STATUS: SECURED</div>
         
         <div class="price-list">
             <div class="price-item"><span>🛡️ تأمين حسابات:</span> <span>250 DH</span></div>
             <div class="price-item"><span>💻 اختبار اختراق:</span> <span>500 DH</span></div>
-            <div class="price-item"><span>🧹 تنظيف أجهزة:</span> <span>150 DH</span></div>
         </div>
 
-        <button class="btn-contact" onclick="window.location.href='mailto:aminesadoq109@gmail.com?subject=طلب استشارة من Amine Security&body=مرحباً أمين، أود الاستفسار عن خدماتك الأمنية.'">
+        <button class="btn-contact" onclick="window.location.href='mailto:aminesadoq109@gmail.com?subject=Amine Security Inquiry'">
             تراسل معي عبر الإيميل
         </button>
-        
-        <p style="font-size: 11px; color: #888; margin-top: 15px;">المعرف الرقمي: AS-109-PNG</p>
     </div>
 
     <script>
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const letters = "0101010101";
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        const letters = "010101"; const fontSize = 16;
+        const columns = canvas.width / fontSize; const drops = Array(Math.floor(columns)).fill(1);
         function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#0f0";
-            ctx.font = fontSize + "px arial";
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#0f0"; ctx.font = fontSize + "px arial";
             drops.forEach((y, i) => {
-                const text = letters[Math.floor(Math
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, i * fontSize, y * fontSize);
+                if (y * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }
+        setInterval(draw, 33);
+    </script>
+</body>
+</html>
